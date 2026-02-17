@@ -19,6 +19,9 @@ source "${DIR_NAME}/gather_edpm_sos"
 # logs
 expand_ns
 
+# get OCP release info
+source "${DIR_NAME}/gather_ocp_version"
+
 # Skip namespaced resource collection if OMC mode is enabled (oc adm inspect handles this)
 if [[ "${OMC}" != "true" ]]; then
     # Gather openshift resources

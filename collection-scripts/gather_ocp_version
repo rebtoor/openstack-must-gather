@@ -1,0 +1,13 @@
+#!/bin/bash
+
+if [[ -z "$DIR_NAME" ]]; then
+    CALLED=1
+    DIR_NAME=$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )
+    source "${DIR_NAME}/common.sh"
+fi
+
+echo "Gathering OCP release info"
+run_bg /usr/bin/oc adm release info '>' "${BASE_COLLECTION_PATH}/ocp_release_info"
+run_bg /usr/bin/oc get clusterversion version -o yaml '>' "${BASE_COLLECTION_PATH}/clusterversion.yaml"
+
+[[ $CALLED -eq 1 ]] && wait_bg
